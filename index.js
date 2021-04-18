@@ -1,5 +1,6 @@
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
 const cors = require('cors');
 const port = process.env.PORT || 5000;
 require('dotenv').config();
@@ -89,13 +90,41 @@ client.connect((err) => {
         })
     })
 
+    //API to delete a service by id
+    app.post('/delservice', (req, res) => {
+        const id = ( req.query);
+        console.log(id.id);
+        servicesCollection.deleteOne({_id: ObjectID(id.id)})
+        .then(result => {
+            res.send(result.deletedCount > 0);
+        })
+    })
 
-    
+    //API to delete a Review by id
+    app.post('/delreview', (req, res) => {
+        const id = ( req.query);
+        console.log(id.id);
+        reviewsCollection.deleteOne({_id: ObjectID(id.id)})
+        .then(result => {
+            res.send(result.deletedCount > 0);
+        })
+    })
 
-
-        
-
-    
+    //API to detect whether a user is an Admin
+    app.post('/isAdmin', (req, res) => {
+        const email = req.body.email;
+        console.log(email);
+        adminsCollection.find({email: email})
+            .toArray((err, documents) => {
+                if(documents.length === 1){
+                    res.send(true)
+                } else {
+                    res.send(false)
+                }
+                // res.send(documents.length > 0)
+                console.log(documents.length)
+            })
+    })
  
  
     // app.post('/showOrders', (req, res) => {
