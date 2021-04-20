@@ -27,13 +27,7 @@ client.connect((err) => {
         res.send('403 - Direct Access Denied...')
     })
 
-    //API for display All orders (filtered by user's or admin's emails)
-    app.get('/showOrders', (req, res) => {
-        ordersCollection.find({})
-            .toArray((err, documents) => {
-                res.send(documents);
-        })
-    })
+    
 
     //API for show all services
     app.get('/allServices', (req, res) => {
@@ -45,11 +39,12 @@ client.connect((err) => {
 
     //API to update service status
     app.post('/updatestatus', (req, res)=>{
-        console.log(req.body);
+        // console.log(req.body);
         const updateObject = {status: req.body.status};
         const id = req.body.id;
         ordersCollection.updateOne({_id: ObjectID(id)}, {$set: updateObject})
         .then(result => {
+            // console.log(result.modifiedCount);
             res.send(result.modifiedCount > 0);
         })
     })
@@ -137,32 +132,41 @@ client.connect((err) => {
             })
     })
  
- 
-    // app.post('/showOrders', (req, res) => {
-    //     const email = req.body.email;
-    //     adminsCollection.find({email: email})
-    //     .toArray((err, documents) => {
-    //         const filter = {};
-    //         if(documents.legth === 0){
-    //             filter.email = email;
-    //         }
-    //         ordersCollection.find(filter)
-    //         .toArray((err, documents) => {
-    //             res.send(documents);
-    //         })
-    //     })
+    //API for display All orders 
+    app.get('/showOrders', (req, res) => {
+        ordersCollection.find({})
+            .toArray((err, documents) => {
+                res.send(documents);
+        })
+    })
 
-    //     console.log(email);
+    //API for display all orders (filtered by user's or admin's emails)
+    app.post('/showOrdersbyEmail', (req, res) => {
+        const email = req.body.email;
+        adminsCollection.find({email: email})
+        .toArray((err, admins)=> {
+            const filter = {};
+            if(admins.length === 0){
+                filter.email = email;
+                ordersCollection.find({email: filter.email})
+                .toArray((err, documents) => {
+                    res.send(documents);
+                })
+            }
+            if(admins.length){
+                ordersCollection.find({})
+                .toArray((err, documents) => {
+                    res.send(documents);
+                })
+            }
+            
+        })
 
+        
+        
+    })
 
-    //     res.send(email)
-
-
-    // })
-
-
-
-
+    
     console.log('DataBase Connected');
 });
 
