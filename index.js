@@ -41,7 +41,17 @@ client.connect((err) => {
             .toArray((err, documents) => {
                 res.send(documents);
             })
+    })
 
+    //API to update service status
+    app.post('/updatestatus', (req, res)=>{
+        console.log(req.body);
+        const updateObject = {status: req.body.status};
+        const id = req.body.id;
+        ordersCollection.updateOne({_id: ObjectID(id)}, {$set: updateObject})
+        .then(result => {
+            res.send(result.modifiedCount > 0);
+        })
     })
 
     //API for show all reviews
@@ -65,6 +75,7 @@ client.connect((err) => {
     //API to make an Admin
     app.post('/makeadmin', (req, res) => {
         const data = req.body;
+        console.log(data);
         adminsCollection.insertOne(data)
         .then(result => {
             res.send(result.insertedCount > 0)
