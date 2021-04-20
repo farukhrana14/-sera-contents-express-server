@@ -119,7 +119,7 @@ client.connect((err) => {
     //API to detect whether a user is an Admin
     app.post('/isAdmin', (req, res) => {
         const email = req.body.email;
-        console.log(email);
+        
         adminsCollection.find({email: email})
             .toArray((err, documents) => {
                 if(documents.length === 1){
@@ -127,12 +127,11 @@ client.connect((err) => {
                 } else {
                     res.send(false)
                 }
-                // res.send(documents.length > 0)
-                console.log(documents.length)
+                
             })
     })
  
-    //API for display All orders 
+    // API for display All orders 
     app.get('/showOrders', (req, res) => {
         ordersCollection.find({})
             .toArray((err, documents) => {
@@ -159,11 +158,7 @@ client.connect((err) => {
                     res.send(documents);
                 })
             }
-            
         })
-
-        
-        
     })
 
     
