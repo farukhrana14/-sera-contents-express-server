@@ -17,6 +17,7 @@ app.use(cors());
 
 //mongo connections
 client.connect((err) => {
+    console.log('db connection error:', err);
     const adminsCollection = client.db(`${process.env.DB_NAME}`).collection('admins');
     const ordersCollection = client.db(`${process.env.DB_NAME}`).collection('orders');
     const servicesCollection = client.db(`${process.env.DB_NAME}`).collection('services');
@@ -30,7 +31,7 @@ client.connect((err) => {
     
 
     //API for show all services
-    app.get('/allServices', (req, res) => {
+    app.get('/allservices', (req, res) => {
         servicesCollection.find({})
             .toArray((err, documents) => {
                 res.send(documents);
@@ -50,7 +51,7 @@ client.connect((err) => {
     })
 
     //API for show all reviews
-    app.get('/allReviews', (req, res) => {
+    app.get('/allreviews', (req, res) => {
         reviewsCollection.find({})
             .toArray((err, documents) => {
                 res.send(documents);
@@ -59,7 +60,7 @@ client.connect((err) => {
     })
 
     //API for placing orders by POST
-    app.post('/addOrder', (req, res) => {
+    app.post('/addorder', (req, res) => {
         const order = req.body;
         ordersCollection.insertOne(order)
         .then(result => {
@@ -117,7 +118,7 @@ client.connect((err) => {
     })
 
     //API to detect whether a user is an Admin
-    app.post('/isAdmin', (req, res) => {
+    app.post('/isadmin', (req, res) => {
         const email = req.body.email;
         
         adminsCollection.find({email: email})
@@ -132,7 +133,7 @@ client.connect((err) => {
     })
  
     // API for display All orders 
-    app.get('/showOrders', (req, res) => {
+    app.get('/showorders', (req, res) => {
         ordersCollection.find({})
             .toArray((err, documents) => {
                 res.send(documents);
@@ -140,7 +141,7 @@ client.connect((err) => {
     })
 
     //API for display all orders (filtered by user's or admin's emails)
-    app.post('/showOrdersbyEmail', (req, res) => {
+    app.post('/showordersbyemail', (req, res) => {
         const email = req.body.email;
         adminsCollection.find({email: email})
         .toArray((err, admins)=> {
