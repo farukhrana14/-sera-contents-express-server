@@ -14,5 +14,6 @@ Live site hosted at [Firebase](https://time-machine-7b98e.web.app/admin/addProdu
 2. Creation of API at back-end and use CRUD operation 
 3. Applicaion of react router, hooks and private route: useParams(), useEffect(), useState()
 4. Use of [IMGBB API] (https://api.imgbb.com/) was part of the assignment
+5.  Deploy server on heroku
 
 
