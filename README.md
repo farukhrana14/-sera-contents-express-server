@@ -5,7 +5,7 @@ This assignment is submitted as a par of Complete Web Development Course by [Pro
 ## Site and code links
 
 Live site hosted at [Firebase](https://time-machine-7b98e.web.app/admin/addProducts) 
-& Code repository is at [Client-side](https://github.com/Porgramming-Hero-web-course/complete-website-server-farukhrana14) and [Server-side](https://github.com/Porgramming-Hero-web-course/complete-website-server-farukhrana14)
+& Code repository is at [Client-side](https://github.com/farukhrana14/sera-contents-full-stack) and [Server-side](https://github.com/farukhrana14/-sera-contents-express-server)
 
 
 ## Tasks in the assignment
@@ -14,6 +14,5 @@ Live site hosted at [Firebase](https://time-machine-7b98e.web.app/admin/addProdu
 2. Creation of API at back-end and use CRUD operation 
 3. Applicaion of react router, hooks and private route: useParams(), useEffect(), useState()
 4. Use of [IMGBB API] (https://api.imgbb.com/) was part of the assignment
-5.  Deploy server on heroku
 
 
